@@ -2940,11 +2940,11 @@
 	.navPanelToggle {
 		text-decoration: none;
 		text-decoration: none;
-		height: 100%;
+		height: 10%;
 		left: 0;
 		position: absolute;
 		top: 0;
-		width: 100%;
+		width: 13%;
 		display: none;
 	}
 
