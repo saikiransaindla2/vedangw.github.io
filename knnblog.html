@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<!--
+	Spatial by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+	-->
+<html>
+    <head>
+        <title>Vedang Waradpande | Writing</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="assets/css/main.css" />
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Muli" />
+        <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Muli' type='text/css' />
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+    <body class="landing">
+
+    <!-- Header -->
+    <header id="header" class="alt">
+        <nav id="nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="generic.html">Writing</a></li>
+                <li><a href="#footer">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+
+    <!-- Banner -->
+    <section id="banner" class="wrapper style1">
+    </section>
+
+    <!-- Main -->
+    <section id="main" class="wrapper">
+        <div class="container">
+
+            <header class="major special">
+                <h2>Basics of k-Nearest Neighbours</h2>
+                <p>7 Jul, 2018</p>
+            </header>
+
+            <p>While several complex algorithms have been developed for the purpose of solving classification and regression tasks in Machine Learning, there are cases in which simple algorithms work well and give satisfactory results with low training time. One such algorithm is the k-Nearest Neighbours algorithm. The idea of a k-NN is simple: "If it walks like a duck, quacks like a duck, then it is a duck."</p>
+            <p>Wikipedia gives a great definition for the k-Nearest Neighbours algorithm:</p>
+            <blockquote>"The k-nearest neighbors algorithm (k-NN) is a non-parametric method used  for classification and regression. In both cases, the input consists of the k closest training examples in the feature space."</blockquote>
+            <p>Here, non-parametric means that the algorithm does not have any parameters that play a role in the classification or regression, unlike most other algorithms such as Linear Regression, Logistic Regression or any kind of Neural Network.</p>
+
+
+            <h3>The algorithm</h3>
+            <p>We can assume the input to be a instance of real features, \(T(X_1, X_2, X_3, ..., X_n)\), as in the case of any predictive Machine Learning algorithm. In both classification and regression, we try to determine the value of a target variable, say \(Y\).</p>
+            <p>In case of regression, \(Y\) can be a real valued variable which is supposed to depict as accurately as possible the value that \(Y\) takes given the values of \(Y\) for other instances. In case of classification, \(Y\) is typically a whole or natural number denoting the class that the given instance can fall in.</p>
+
+            <h4>k-NN for classification</h4>
+            <ol>
+                <li>Plot all given instances \(T_1, T_2, ..., T_n\) in the data in \(m\)-dimensional space.</li>
+                <li>Plot the newly given instance, \(T\) in \(m\)-dimensional space.</li>
+                <li>Select the \(k\) nearest neighbours of \(T\) in this space using a distance metric (such as Euclidean distance).</li>
+                <li>Select the majority class among these \(k\) nearest instances.</li>
+            </ol>
+
+            <h4>k-NN for regression</h4>
+            <ol>
+                <li>Plot all given instances \(T_1, T_2, ..., T_n\) in the data in \(m\)-dimensional space.</li>
+                <li>Plot the newly given instance, \(T\) in \(m\)-dimensional space.</li>
+                <li>Select the \(k\) nearest neighbours of \(T\) in this space using a distance metric (such as Euclidean distance).</li>
+                <li>Compute the value of \(Y\) using any central tendency such as mean, weighted mean, etc.</li>
+            </ol>
+
+            <p>Take for example the following dataset where each sample is projected in 2-dimensional space. The red "X" represents the test instance.</p>
+            <p>Say for example that we are using 3-NN, i.e., we choose 3 closest points to the test instance as follows:</p>
+            <p>The algorithm for classification and regression differs only in the last step. If the above were a classification task, with the points belonging to one of two classes (say \(0\) or \(1\)), and if 2 of the 3 closest samples belong to class \(0\), then the test instance will be predicted as belonging to class \(0\). If 2 of the 3 closest samples belonged to \(1\), then the prediction would be \(1\). If the task was regression, and we needed to find the value of \(Y\) for the test instance and the values of \(Y\) for the 3 nearest neighbours were \(10.0\), \(11.0\) and \(14.0\), then the value of \(Y\) would be predicted as:$$Y = (10.0 + 11.0 + 14.0) / 3 = 11.6667$$</p>
+            <p>While this algorithm is quite intuitive, there are several things we would need to think of before setting out to achieve the best performance.</p>
+
+            <h3>Lazy vs Eager Learners</h3>
+            <p>Learning algorithms can be divided into Lazy and Eager learners depending on their "overall understanding" of the data as follows:</p>
+            <p><strong>Lazy learners</strong> simply store the training data (often after minor preprocessing) and wait for a test instance is given. The prediction is made based on the stored data. (Eg. Rote learners, k-NN, etc.)</p>
+            <p><strong>Eager learners</strong> learn the data by creating a model based on it. This model is supposed to depict the data and the patterns and relations in it as closely as possible. The prediction is made based on this model. (Eg. Logistic Regression, Support Vector Machines, Neural Networks, etc.)</p>
+            <p>So k-NN is a lazy learner. It stores data and simply makes predictions based on some calculation involving part of the data and the instance. We now go through each step and understand what parts of the algorithm we can tweak to make it perform better.</p>
+
+            <h3>Optimising the model</h3>
+            <p>While there's nothing consequential to change in steps 1 and 2 of the algorithm, it is possible to change several key parts of steps 3 and 4.</p>
+
+            <h4>Distance Metric</h4>
+            <p>To know which k instances are closest to the test instance, we'll need a distance metric to measure how different two instances are. There are several distance metrics which can be used depending upon the nature of the data and problem at hand.</p>
+            <p><strong>Euclidean Distance.</strong> The most commonly used distance metric. The Euclidean Distance between two points, \(A(a_1, a_2,..., a_n)\) and \(B(b_1, b_2,..., b_n)\) is given as $$D_{A, B} = \sqrt{\sum _{i=1}^{n}(a_i - b_i)^2}$$</p>
+            <p><strong>Manhattan Distance.</strong> We can also use the Manhattan distance (also known as City Block distance). There are some claims that this metric works better for high dimensional data, as in <a href="https://bib.dbvis.de/uploadedFiles/155.pdf">this paper</a>. This distance is given by $$D_{A, B}=\sum _{i=1}^{n}\left|a_i - b_i\right|$$</p>
+            <p><strong>Hamming Distance.</strong> In the case when \(X_1, X_2,..., X_n\) are binary variables (can only take values \(0\) or \(1\)), the Hamming distance can be used. This is given by $$D_{A, B}=\sum_{i=1}^{n}I_i$$ where $$I_i = \begin{cases} 1, if a_i = b_i \\ 0, otherwise\end{cases}$$</p>
+
+            <h4>Value of k</h4>
+            <p>This is the most important factor to consider and the only hyperparameter of the algorithm. How many nearest samples should we choose to make sure that a new instance gets classified correctly? Intuitively we can tell that the number shouldn't be too less or too many. Let's try to get an idea what happens when we choose different values for \(k\).</p>
+            <p><strong>\(k\) is too small.</strong> Highly variable, unstable boundaries, sensitive to noise points and overfitting. Lets take \(k = 1\) for a classification task where \(Y\) can be \(0\) or \(1\); this is basically a \(1\)-NN. This model will output \(0\) if the nearest neighbour to the test instance is a \(0\) and \(1\) if it is a \(1\). It might not take much to figure out that this is not be a good choice of \(k\) as it is very easy for instances to get misclassified. Take for example, the following dataset.</p>
+            <p>If we zoom in, we can see,</p>
+            <p>Consider all the red samples from which lines emerge and go to blue samples. If any of these were a test instance, they'd clearly be predicted as a blue instance, even if they were supposed to be red ones, since they are closest to blue samples.</p>
+            <p><strong>k is too large.</strong> Neighborhood may contain instances from other classes. In the same dataset, if one of the red points in the center were a test instance, we'd see the following kind of neighbourhood:</p>
+            <p>The large number of blue points in the neighbourhood would ensure that the point is predicted to be a blue point when we knew its a red point.</p>
+            <p><strong>k is infinite.</strong> This means that the k-NN always predicts the dominant class in the dataset. It is actually the same as a Zero-R rule-based classifier.</p>
+            <p>Unfortunately there's no standard way of determining the right value of \(k\) just by looking at the data. The best way to determine \(k\) is by using a validation set.</p>
+
+            <h4>Central Tendency for regression</h4>
+            <p>If it is a classification task, it doesn't make sense to change Step 4. Clearly, the majority class should be predicted as it gives the best depiction of the instances around the test data. If it is a regression task, however, we may change the central tendency used to compute the value of \(Y\).</p>
+            <p><strong>Mean.</strong> Usually the mean of the values of the \(k\) nearest neighbours is used to determine the value of \(Y\). $$Y = \frac{\sum_{i=1}^{k}Y_i}{k}$$ where \(Y_1,..., Y_k\) are the values of \(Y\) for the \(k\) nearest neighbours.</p>
+            <p><strong>Weighted mean.</strong> Alternatively, we can find the weighted mean of the neighbours, the weights being the reciprocals of their distances from the test instance.$$Y=\frac{\sum_{i=1}^{k}D_i.Y_i}{\sum_{i=1}^{k}D_i}$$ where \(D_i\) is the reciprocal of the distance from the test instance to sample with label \(Y_i\)</p>
+            <p>Other measures such as Median, Mode, weighted mean with weights are probabilites of the classes and so on can also be used.</p>
+
+            <h3>Pros and Cons</h3>
+
+            <p>While k-NN sounds very simplistic compared to most of the Eager learners, it has its set of advantages.</p>
+            <ul>
+                <li>It can be used on data having any kind of distribution, most importantly, the data need not be separated by a linear kind of boundary to carry out the classification.</li>
+                <li>It is good at interpolation, if we have a large number of training instances.</li>
+                <li>The setup time is very low compared to the training time that eager learners have.</li>
+            </ul>
+
+            <p>However, it also has some issues that need to be considered before recognizing as the model of choice for any task.</p>
+            <ul>
+                <li>Scalability: Usually, if a particular feature has a much higher value than the other features, it dominates the value of the distance in case of Euclidean distance. This would mean that some features would decide what the value of \(Y\) is much more than the others, which might not be the case in reality. Normalising the data samples to a range like \([0, 1]\) can help mitigate this issue.</li>
+                <li>High compute time for prediction on test sample: This particular condition might be agreeable in some cases. For instance, if the problem entails predicting if a patient has cancer or not, prediction time is not of essence here, but if the problem is to find if an incoming projectile is a rock or a missile, time is highly critical. Of course, there are far better models than \(k\)-NN for solving either of these problems.</li>
+                <li>It only works properly if there are a large amount of samples available. While it is good at interpolation, it is bad at extrapolation of values.</li>
+            </ul>
+            <p>Finally, while k-NN might not be used as often as any popular algorithms in Machine Learning, it gives a good level of intuition about how other algorithms can be designed, especially some unsupervised algorithms.</p>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <h2 style="color:#aaa"> Get in touch</h2>
+            <ul class="icons">
+                <li><a href="mailto:vedang.waradpande@gmail.com" class="icon fa-envelope"></a></li>
+                <li><a href="https://www.linkedin.com/in/vedang-waradpande/" class="icon fa-linkedin"></a></li>
+                <li><a href="https://github.com/VedangW" class="icon fa-github"></a></li>
+            </ul>
+            <ul class="copyright">
+                <li>&copy; 2020 Vedang Waradpande</li>
+                <li>Design: <a href="http://templated.co">TEMPLATED</a></li>
+                <li>Images: <a href="http://unsplash.com">Unsplash</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/skel.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    </body>
+</html>
