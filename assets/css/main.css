@@ -2737,7 +2737,7 @@
 
 		.wrapper.style3 {
 			background-attachment: fixed;
-			background-image: url("images/overlay.png"), url("../../images/banner.jpg");
+			background-image: url("images/overlay.png"), url("../../images/mount-mckinley.jpg");
 			background-position: center center;
 			background-size: cover;
 		}
@@ -2794,7 +2794,7 @@
 
 	#header {
         background-attachment: fixed;
-        background-image: url("images/banner.jpg");
+        background-image: url("images/mount-mckinley.jpg");
         background-color: color: #484848;
         background-position: center center;
         background-size: cover;
@@ -3105,7 +3105,7 @@
 		padding: 10em 0 0em 0;
 		height: 30
 		background-attachment: fixed;
-		background-image: url("images/overlay.png"), url("../../images/banner.jpg");
+		background-image: url("images/overlay.png"), url("../../images/mount-mckinley.jpg");
 		background-position: center top;
 		background-size: cover;
 		line-height: 1.75;
