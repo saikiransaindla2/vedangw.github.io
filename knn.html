@@ -22,7 +22,7 @@
         <nav id="nav">
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="generic.html">Writing</a></li>
+                <li><a href="writings.html">Writing</a></li>
                 <li><a href="#footer">Contact</a></li>
             </ul>
         </nav>
@@ -70,7 +70,9 @@
             </ol>
 
             <p>Take for example the following dataset where each sample is projected in 2-dimensional space. The red "X" represents the test instance.</p>
+            <a href="#" class="image fit"><img src="images/blog_images/knn4.png" alt="" /></a>
             <p>Say for example that we are using 3-NN, i.e., we choose 3 closest points to the test instance as follows:</p>
+            <a href="#" class="image fit"><img src="images/blog_images/knn0041.png" alt="" /></a>
             <p>The algorithm for classification and regression differs only in the last step. If the above were a classification task, with the points belonging to one of two classes (say \(0\) or \(1\)), and if 2 of the 3 closest samples belong to class \(0\), then the test instance will be predicted as belonging to class \(0\). If 2 of the 3 closest samples belonged to \(1\), then the prediction would be \(1\). If the task was regression, and we needed to find the value of \(Y\) for the test instance and the values of \(Y\) for the 3 nearest neighbours were \(10.0\), \(11.0\) and \(14.0\), then the value of \(Y\) would be predicted as:$$Y = (10.0 + 11.0 + 14.0) / 3 = 11.6667$$</p>
             <p>While this algorithm is quite intuitive, there are several things we would need to think of before setting out to achieve the best performance.</p>
 
@@ -91,11 +93,8 @@
 
             <h4>Value of k</h4>
             <p>This is the most important factor to consider and the only hyperparameter of the algorithm. How many nearest samples should we choose to make sure that a new instance gets classified correctly? Intuitively we can tell that the number shouldn't be too less or too many. Let's try to get an idea what happens when we choose different values for \(k\).</p>
-            <p><strong>\(k\) is too small.</strong> Highly variable, unstable boundaries, sensitive to noise points and overfitting. Lets take \(k = 1\) for a classification task where \(Y\) can be \(0\) or \(1\); this is basically a \(1\)-NN. This model will output \(0\) if the nearest neighbour to the test instance is a \(0\) and \(1\) if it is a \(1\). It might not take much to figure out that this is not be a good choice of \(k\) as it is very easy for instances to get misclassified. Take for example, the following dataset.</p>
-            <p>If we zoom in, we can see,</p>
-            <p>Consider all the red samples from which lines emerge and go to blue samples. If any of these were a test instance, they'd clearly be predicted as a blue instance, even if they were supposed to be red ones, since they are closest to blue samples.</p>
-            <p><strong>k is too large.</strong> Neighborhood may contain instances from other classes. In the same dataset, if one of the red points in the center were a test instance, we'd see the following kind of neighbourhood:</p>
-            <p>The large number of blue points in the neighbourhood would ensure that the point is predicted to be a blue point when we knew its a red point.</p>
+            <p><strong>\(k\) is too small.</strong> Highly variable, unstable boundaries, sensitive to noise points and overfitting. Lets take \(k = 1\) for a classification task where \(Y\) can be \(0\) or \(1\); this is basically a \(1\)-NN. This model will output \(0\) if the nearest neighbour to the test instance is a \(0\) and \(1\) if it is a \(1\). It might not take much to figure out that this is not be a good choice of \(k\) as it is very easy for instances to get misclassified.</p>
+            <p><strong>k is too large.</strong> Neighborhood may contain more instances from other classes, and thus the test instance can be easily misclassified. In case of a class imbalance and a large value of \(k\), the predictions will tend to favour the majority class.</p>
             <p><strong>k is infinite.</strong> This means that the k-NN always predicts the dominant class in the dataset. It is actually the same as a Zero-R rule-based classifier.</p>
             <p>Unfortunately there's no standard way of determining the right value of \(k\) just by looking at the data. The best way to determine \(k\) is by using a validation set.</p>
 
