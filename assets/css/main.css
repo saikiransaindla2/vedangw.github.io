@@ -3002,6 +3002,8 @@
 		width: 5em;
 		padding: 0.5em 1.25em;
 		text-transform: uppercase;
+		width: fit-content;
+        padding: 40px;
 	}
 
 		#navPanel ul {
